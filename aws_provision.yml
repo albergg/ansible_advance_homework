@@ -4,6 +4,7 @@
   gather_facts: false
 #  vars_files:
 #   - aws_provision_vars.yml
+  include_vars: aws_provision_vars.yml
 
   tasks:
     - name: create bin directory
