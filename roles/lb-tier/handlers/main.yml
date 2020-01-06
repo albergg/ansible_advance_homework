@@ -1,8 +1,6 @@
 ---
-# handlers file for lb-tier
-- name: restart_haproxy
-  service:
-   name: haproxy
-   state: restarted
-   enabled: yes
 
+- name: start {{ payload }}
+  service:
+    name: tomcat
+    state: started

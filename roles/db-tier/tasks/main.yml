@@ -1,35 +1,26 @@
 ---
-# tasks file for db-tier
-- name: Install PostgreSQL`
-  yum:
-   name: postgresql-server
-   state: present
-  tags:
-   - dbs
-   - postgres
+# Variable configuration.
+- include: variables.yml
+  static: no
 
-- name: Check if PostgreSQL database is initialized
-  command: postgresql-check-db-dir /var/lib/pgsql/data
-  register: a_pg_data_dir
-  changed_when: a_pg_data_dir == 1
-  ignore_errors: yes
-  tags:
-   - dbs
-   - postgres
+# Setup/install tasks.
+- include: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+  static: no
 
-- name: Ensure PostgreSQL database is initialized.
-  shell: postgresql-setup initdb
-  when: a_pg_data_dir.rc != 0
-  tags:
-   - dbs
-   - postgres
+- include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+  static: no
 
-- name: Start PostgreSQL
+- include: initialize.yml
+- include: configure.yml
+
+- name: Ensure PostgreSQL is started and enabled on boot.
   service:
-   name: postgresql
-   state: started
-   enabled: yes
-  tags:
-   - dbs
-   - postgres
+    name: "{{ postgresql_daemon }}"
+    state: started
+    enabled: yes
 
+# Configure PostgreSQL.
+- include: databases.yml
+- include: users.yml

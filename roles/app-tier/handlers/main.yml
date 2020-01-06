@@ -1,14 +1,6 @@
 ---
-# handlers file for app-tier
-- name: restart-tomcat
-  service:
-   name: tomcat
-   state: restarted
-   enabled: yes
 
-- name: start-apache
+- name: start {{ payload }}
   service:
-   name: httpd
-   state: started
-   enabled: yes
-
+    name: tomcat
+    state: started

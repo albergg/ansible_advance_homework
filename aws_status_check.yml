@@ -1,7 +1,5 @@
-- hosts: tag_instance_filter_three_tier_app_waldemar_baldowski_atos_net
+- hosts: tag_instance_filter_three_tier_app_alberto_gonzalezg_ibm_com
   gather_facts: false
-  become: false
-
   tasks:
   - name: Check the instances status
     wait_for:
