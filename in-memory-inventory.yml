@@ -1,4 +1,4 @@
-- name: In memory inventory play
+- name: In momory inventory play
   hosts: workstation
   tasks:  
   - name: Fetch Instance Info
@@ -32,7 +32,7 @@
     with_items: "{{result.ansible_facts.openstack_servers}}"
 
   - debug: var=groups
-
+             
 - hosts: QA
   gather_facts: false
   tasks:     

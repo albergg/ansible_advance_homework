@@ -1,0 +1,10 @@
+---
+- hosts: "{{ HOSTS }}"
+  gather_facts: false
+  become: false
+
+  tasks:
+  - name: Ping hosts from inventory
+    ping: 
+
+

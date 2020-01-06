@@ -1,6 +1,6 @@
 ---
 # tasks file for db-tier
-- name: Install PostgreSQL
+- name: Install PostgreSQL`
   yum:
    name: postgresql-server
    state: present
@@ -19,7 +19,7 @@
 
 - name: Ensure PostgreSQL database is initialized.
   shell: postgresql-setup initdb
-  when: a_pg_data_dir.rc != 0  
+  when: a_pg_data_dir.rc != 0
   tags:
    - dbs
    - postgres

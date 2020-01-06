@@ -6,5 +6,5 @@
    state: latest
 
   notify:
-   - start-apachename: Install Apache
-              
+   - start-apache
+

@@ -5,6 +5,7 @@
       cloud: ospcloud
       region_name: RegionOne
      register: result
+
    - name: Add host
      add_host:
       name: "{{ item.public_v4 }}"
@@ -31,7 +32,7 @@
 
    - debug: var=groups
 
-#  - hosts: QA
+#- hosts: QA
 #  gather_facts: false
 #  tasks:
 #  - ping:

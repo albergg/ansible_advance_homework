@@ -1,5 +1,4 @@
 ---
-
 - name: frontend - Create new server instance and attaches them a network and passes metadata to the instance
   os_server:
    cloud: ospcloud
@@ -21,21 +20,22 @@
     cp /tmp/internal.repo /etc/yum.repos.d/internal.repo
   register: instanceip
 
-- name: db - Add floating IP to Servers
+- name: frontend - Add floating IP to Servers
   os_floating_ip:
    cloud: ospcloud
    state: present
-   server: "{{ osp_servers.db.name }}"
-   network: "{{ osp_servers.db.networks.ext }}"
+   server: "{{ osp_servers.frontend.name }}"
+   network: "{{ osp_servers.frontend.networks.ext }}"
   register: instancefloatingip
 
 - name: frontned - Show "{{ instanceip }}" floating (public) IP
   debug: var=instancefloatingip.floating_ip.floating_ip_address
 
-- name: db - Wait for server to be available
+- name: frontend - Wait for server to be available
   wait_for:
    host: "{{ instancefloatingip.floating_ip.floating_ip_address }}"
    port: 22
    search_regex: OpenSSH
    timeout: 600
   delegate_to: "{{ inventory_hostname }}" 
+
